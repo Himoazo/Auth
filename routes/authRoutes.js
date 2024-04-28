@@ -3,7 +3,18 @@
  */
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
+require("dotenv").config();
 
+//Connect to db
+mongoose.connect(process.env.uri).then(()=>{
+    console.log("Connected to Mongodb")
+}).catch((error)=>{
+    console.error("Connecting to Mong faild");
+});
+
+//User schema
+const user = require("../models/user");
 //Registrera användare
 router.post("/register", async (req, res)=>{
     try{
