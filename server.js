@@ -11,5 +11,5 @@ app.use("/api", authRoutes);
 
 //Starting app
 app.listen(port, ()=>{
-    console.log(`Serve is running on port : ${port}`);
+    console.log(`Server is running on port : ${port}`);
 });

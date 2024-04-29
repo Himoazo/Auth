@@ -1,3 +1,4 @@
+const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
@@ -5,11 +6,15 @@ const bcrypt = require("bcrypt");
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
+        unique: true,
         required: true,
-        uniqe: true,
         trim: true
     },
     password: {
+        type: String,
+        required: true
+    },
+    email: {
         type: String,
         required: true
     },
@@ -33,9 +38,9 @@ userSchema.pre("save", async function(next){
 });
 
 // Register user
-userSchema.statics.register = async function(username, password){
+userSchema.statics.register = async function(username, password, email){
     try{
-        const user = this({username, password});
+        const user = this({username, password, email});
         await user.save;
         return user;
     }catch(error){
@@ -58,23 +63,23 @@ userSchema.statics.login = async function(username, password){
         const user= await this.findOne({username});
 
         if(!user){
-            throw new Error("Incorrect username/passowrd");
+            throw new Error("Incorrect username/passowrd"); 
         }
 
         const matchedPass = await user.comparePassword(password);
 
         //Password not matched
         if(!matchedPass){
-            throw new Error("Incorrect username/passowrd");
+             throw new Error("Incorrect username/passowrd"); 
         }
 
         //Matched
         return user;
 
     }catch(error){
-        throw error;
+        console.log(error);
     }
 }
 
-const user = mongoose.model("user", userSchema);
-module.exports = user;
+const User = mongoose.model("user", userSchema);
+module.exports = User;

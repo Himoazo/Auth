@@ -14,7 +14,7 @@ mongoose.connect(process.env.uri).then(()=>{
 });
 
 //User schema
-const user = require("../models/user");
+const User = require("../models/user");
 //Registrera användare
 router.post("/register", async (req, res)=>{
     try{
@@ -26,9 +26,13 @@ router.post("/register", async (req, res)=>{
         }
 
         //Successful user registration
+        const user = new User({username, password, email});
+        await user.save();
+
         res.status(201).json({message: "User is created"});
     }catch(error){
         res.status(500).json({message: "Internal server error"});
+        console.log(error);
     }
 });
 
@@ -42,15 +46,22 @@ router.post("/login", async (req, res)=>{
             return res.status(400).json({error: "Invalid username/password"});
         }
 
-        //Check credentials
-        if(username === "Himo" && password === "Azo"){
-            res.status(200).json({message: "logged in successfully"});
+        //Existing user
+        const user = await User.findOne({username});
+        if(!user){
+            return res.status(401).json({error: "Incorrect username/password"});
+        }
+
+        //Password check
+        const passMatch = await user.comparePassword(password);
+        if(!passMatch){
+            return res.status(401).json({error: "Incorrect username/password!"});
         }else{
-            res.status(401).json({error: "Invalid username/password"});
+            return res.status(200).json({message: "User is logged in"});
         }
         
     }catch(error){
-        res.status(500).json({message: "Internal server error"});
+        res.status(500).json({message: "Internal server error!"});
     }
 });
 
