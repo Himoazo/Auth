@@ -16,6 +16,7 @@ mongoose.connect(process.env.uri).then(()=>{
 
 //User schema
 const User = require("../models/user");
+
 //Registrera användare
 router.post("/register", async (req, res)=>{
     try{
