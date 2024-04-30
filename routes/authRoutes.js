@@ -62,11 +62,17 @@ router.post("/login", async (req, res)=>{
             //JWT
             const payload = {username: username};
             const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: "1h"});
-            const response = {
+            /* const response = {
             message: "User is logged in",
             token: token
-        }
-            return res.status(200).json({response});
+        } */
+
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            path: "/"
+        })
+            return res.status(200).json({message: "User is logged in"});
         }
         
     }catch(error){
