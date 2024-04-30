@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 const port = process.env.PORT;
 const cors = require("cors");
-app.use(cors());
+app.use(cors({ origin: '*' }));
 const mongoose = require("mongoose");
 mongoose.createConnection(process.env.uri2).asPromise();
 const workexperience = require("./models/exp.js");

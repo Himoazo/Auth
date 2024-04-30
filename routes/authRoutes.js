@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cors = require("cors");
-app.use(cors());
+app.use(cors({ origin: '*' }));
 //Connect to db
 mongoose.connect(process.env.uri).then(()=>{
     console.log("Connected to Mongodb")
