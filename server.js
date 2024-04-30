@@ -16,6 +16,15 @@ const workexperience = require("./models/exp.js");
 app.use("/api", authRoutes);
 
 //GET request
+app.get("/api/workexperiences", async(req, res)=>{
+    try{
+        let result = await workexperience.find({});
+       
+        return res.json(result);
+    }catch(error){
+        return res.status(500).json(error);
+    }
+});
 
 //Hantera POST requests
 app.post("/api/workexperiences", authenticatetoken, async(req, res)=>{
