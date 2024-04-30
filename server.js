@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 const port = process.env.PORT;
 const cors = require("cors");
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: 'https://fetch-auth.netlify.app/' }));
 const mongoose = require("mongoose");
 mongoose.createConnection(process.env.uri2).asPromise();
 const workexperience = require("./models/exp.js");
