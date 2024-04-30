@@ -6,6 +6,8 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 const port = process.env.PORT;
+const cors = require("cors");
+app.use(cors());
 const mongoose = require("mongoose");
 mongoose.createConnection(process.env.uri2).asPromise();
 const workexperience = require("./models/exp.js");
@@ -13,6 +15,7 @@ const workexperience = require("./models/exp.js");
 //Routing
 app.use("/api", authRoutes);
 
+//GET request
 
 //Hantera POST requests
 app.post("/api/workexperiences", authenticatetoken, async(req, res)=>{

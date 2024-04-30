@@ -60,9 +60,9 @@ router.post("/login", async (req, res)=>{
             return res.status(401).json({error: "Incorrect username/password!"});
         }else{
             //JWT
-        const payload = {username: username};
-        const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: "1h"});
-        const response = {
+            const payload = {username: username};
+            const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: "1h"});
+            const response = {
             message: "User is logged in",
             token: token
         }
