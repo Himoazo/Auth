@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cors = require("cors");
-app.use(cors({ origin: 'https://fetch-auth.netlify.app/' }));
+app.use(cors({ origin: 'https://fetch-auth.netlify.app/login' }));
 //Connect to db
 mongoose.connect(process.env.uri).then(()=>{
     console.log("Connected to Mongodb")
