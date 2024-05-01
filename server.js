@@ -77,7 +77,10 @@ app.put("/api/workexperiences/:id", authenticatetoken, async(req, res)=>{
 
 //Validate token
 function authenticatetoken(req, res, next){
-    const token = req.cookies.token; //läs in cookie som innehåller jwt token
+    /* const token = req.cookies.token; */ //läs in cookie som innehåller jwt token
+    /* const authHeader = req.headers['authorization']; */
+    /* const token = authHeader && authHeader.split(' ')[1]; */
+    const token = req.headers['authorization'];
 
     if(token == null){
         res.status(401).json({message: " Not authorized for this route - token is missing"});
