@@ -5,7 +5,7 @@ require("dotenv").config();
 
 const app = express();
 app.use(express.json());
-app.use(express.static('public')); // För att serva statiska filer
+
 const port = process.env.PORT;
 const cors = require("cors");
 // Accept requests from other origins
@@ -32,12 +32,7 @@ app.get("/api/workexperiences", async(req, res)=>{
         return res.status(500).json(error);
     }
 });
-//***** */
-const path = require('path');
-app.get("/test", async(req, res)=>{
-    res.sendFile(path.join(__dirname, 'public', 'about.html'));
-});
-// *********
+
 //Hantera POST requests
 app.post("/api/workexperiences", authenticatetoken, async(req, res)=>{
     try{
