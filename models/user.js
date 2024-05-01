@@ -57,29 +57,5 @@ userSchema.methods.comparePassword = async function(password){
     }
 }
 
-/* //Login user
-userSchema.statics.login = async function(username, password){
-    try{
-        const user= await this.findOne({username});
-
-        if(!user){
-            throw new Error("Incorrect username/passowrd"); 
-        }
-
-        const matchedPass = await user.comparePassword(password);
-
-        //Password not matched
-        if(!matchedPass){
-             throw new Error("Incorrect username/passowrd"); 
-        }
-
-        //Matched
-        return user;
-
-    }catch(error){
-        console.log(error);
-    }
-} */
-
 const User = mongoose.model("user", userSchema);
 module.exports = User;
