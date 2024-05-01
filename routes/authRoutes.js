@@ -68,17 +68,17 @@ router.post("/login", async (req, res)=>{
             //JWT
             const payload = {username: username};
             const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: "1h"});
-            const response = {
+           /*  const response = {
             message: "User is logged in",
-        }
+        } */
         //Skicka token som HTTPonly cookie till client
-        res.cookie("token", token, {
+        /* res.cookie("token", token, {
             httpOnly: true,
             secure: true,
             expires: new Date(Date.now() + 3600000),
             path: "/"
-        });
-            return res.status(200).json(response);
+        }); */
+            return res.status(200).json(token);
         }
         
     }catch(error){
