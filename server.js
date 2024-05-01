@@ -77,9 +77,8 @@ app.put("/api/workexperiences/:id", authenticatetoken, async(req, res)=>{
 
 //Validate token
 function authenticatetoken(req, res, next){
-    /* const token = req.cookies.token; */ //läs in cookie som innehåller jwt token
+    
     const authHeader = req.headers['authorization'];
-    /* const token = authHeader && authHeader.split(' ')[1]; */
     const token = authHeader.split(' ')[1];
     
     console.log(token);

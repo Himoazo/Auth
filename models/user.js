@@ -57,7 +57,7 @@ userSchema.methods.comparePassword = async function(password){
     }
 }
 
-//Login user
+/* //Login user
 userSchema.statics.login = async function(username, password){
     try{
         const user= await this.findOne({username});
@@ -79,7 +79,7 @@ userSchema.statics.login = async function(username, password){
     }catch(error){
         console.log(error);
     }
-}
+} */
 
 const User = mongoose.model("user", userSchema);
 module.exports = User;
