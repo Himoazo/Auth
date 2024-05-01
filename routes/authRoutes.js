@@ -77,8 +77,9 @@ router.post("/login", async (req, res)=>{
             httpOnly: true,
             secure: true,
             expires: new Date(Date.now() + 3600000),
+            domain: 'fetch-auth.netlify.app',
             path: "/"
-        })
+        });
             return res.status(200).json(response);
         }
         
