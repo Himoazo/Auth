@@ -35,7 +35,7 @@ app.get("/api/workexperiences", async(req, res)=>{
 //***** */
 const path = require('path');
 app.get("/test", async(req, res)=>{
-    res.sendFile(path.join(__dirname, 'about.html'));
+    res.sendFile(path.join(__dirname, 'public', 'about.html'));
 });
 // *********
 //Hantera POST requests
