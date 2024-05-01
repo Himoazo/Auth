@@ -81,7 +81,6 @@ function authenticatetoken(req, res, next){
     const authHeader = req.headers['authorization'];
     const token = authHeader.split(' ')[1];
     
-    console.log(token);
     if(token == null){
         res.status(401).json({message: " Not authorized for this route - token is missing"});
     }
