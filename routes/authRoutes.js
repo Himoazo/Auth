@@ -77,7 +77,6 @@ router.post("/login", async (req, res)=>{
             httpOnly: true,
             secure: true,
             expires: new Date(Date.now() + 3600000),
-            sameSite: "none",
             path: "/"
         });
             return res.status(200).json(response);
