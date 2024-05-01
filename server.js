@@ -7,13 +7,19 @@ const app = express();
 app.use(express.json());
 const port = process.env.PORT;
 const cors = require("cors");
+// Accept requests from other origins
 const corsConfig = {
     credentials: true,
     origin: true,
 };
 app.use(cors(corsConfig));
+
+//Read cookies
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 const mongoose = require("mongoose");
-mongoose.createConnection(process.env.uri2).asPromise();
+mongoose.createConnection(process.env.uri2).asPromise(); //Users collection
 const workexperience = require("./models/exp.js");
 
 //Routing
@@ -57,7 +63,9 @@ app.delete("/api/workexperiences/:id", authenticatetoken, async(req, res)=>{
 app.put("/api/workexperiences/:id", authenticatetoken, async(req, res)=>{
     let id = req.params.id;
     let exp = req.body;
-
+    if(exp.enddate == "Pågående" || exp.enddate == ""){
+        exp.enddate = null;
+    }
     try{
         let result = await workexperience.updateOne({_id: id}, {$set: exp});
        
@@ -69,13 +77,12 @@ app.put("/api/workexperiences/:id", authenticatetoken, async(req, res)=>{
 
 //Validate token
 function authenticatetoken(req, res, next){
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(" ")[1];
-    /* const token = req.cookies.token; */
+    const token = req.cookies.token; //läs in cookie som innehåller jwt token
+
     if(token == null){
         res.status(401).json({message: " Not authorized for this route - token is missing"});
     }
-
+    //Verify token
     jwt.verify(token, process.env.JWT_SECRET_KEY, (err, username)=>{
         if(err){
             return res.status(403).json({message: "Invalid JWT"});

@@ -17,7 +17,7 @@ app.use(cors(corsConfig));
 mongoose.connect(process.env.uri).then(()=>{
     console.log("Connected to Mongodb")
 }).catch((error)=>{
-    console.error("Connecting to Mong faild");
+    console.error("Connecting to Mong faild" + error);
 });
 
 //User schema
@@ -70,9 +70,8 @@ router.post("/login", async (req, res)=>{
             const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: "1h"});
             const response = {
             message: "User is logged in",
-            token: token
         }
-
+        //Skicka token som HTTPonly cookie till client
         res.cookie("token", token, {
             httpOnly: true,
             secure: true,

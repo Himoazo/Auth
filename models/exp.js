@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 
-//Schema
+//Schema for workexperience collection
 const expSchema = new mongoose.Schema({
     companyname: {
         type: String,
