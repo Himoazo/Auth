@@ -23,7 +23,7 @@ const workexperience = require("./models/exp.js");
 app.use("/api", authRoutes);
 
 //GET request
-app.get("/api/workexperiences", async(req, res)=>{
+app.get("/api/workexperiences", authenticatetoken, async(req, res)=>{
     try{
         let result = await workexperience.find({});
        
